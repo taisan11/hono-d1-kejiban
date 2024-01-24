@@ -29,11 +29,6 @@ app.get("/api/threads/:threadid", async (c) => {
 	const threadidDate = parseInt(threadidIn);
 
 	const db = drizzle(c.env.DB);
-	const result = await db
-		.select()
-		.from(threads)
-		.where(eq(threads.id, threadidDate))
-		.execute();
 	const result2 = await db.select().from(post).where(eq(post.id, threadidDate));
 	return c.json(result2);
 });
