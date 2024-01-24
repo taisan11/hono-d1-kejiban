@@ -1,0 +1,19 @@
+name = "hono-d1-kejiban"
+compatibility_date = "2023-12-01"
+
+# [vars]
+# MY_VARIABLE = "production_value"
+
+# [[kv_namespaces]]
+# binding = "MY_KV_NAMESPACE"
+# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# [[r2_buckets]]
+# binding = "MY_BUCKET"
+# bucket_name = "my-bucket"
+
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "kejiban-test"
+database_id = "692c74b6-f6de-4462-bf9e-705c5c09d50a"
+migrations_dir = "drizzle/migrations"
