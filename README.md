@@ -1,7 +1,12 @@
-Hono&D1その他で掲示板
-apiのみ
+Hono&D1 create bulletin board
+**api only**
 ## Setup
 ```
+bun i
+bun run db // This is not windows support
+// windows
+bun run dbg
+bun run dbm
 ```
 ## Endpoint
 - /api/threads(view any threads(limit 10))GET

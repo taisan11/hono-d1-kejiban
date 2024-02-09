@@ -2,6 +2,7 @@
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
+    "db":"bun run dbg && bun run dbm",
     "dbg":"drizzle-kit generate:sqlite",
     "dbm":"wrangler d1 migrations apply kejiban-test --local"
   },
