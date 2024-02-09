@@ -12,7 +12,7 @@ export async function dataConfirmation(c: Context, a?: boolean) {
 	} catch (error) {
 		return c.text("無効なJSONデータです");
 	}
-	if (!body.name || !body.message || !body.ip_addr || !body.user_id) {
+	if (!body.name || !body.message || !body.ip_addr) {
 		return c.text("必要な項目がかけています");
 	}
 }

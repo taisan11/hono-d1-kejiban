@@ -26,7 +26,7 @@ JSON Body
 JSON Body
 ```json
 {
-        "id":"threadid",
+        "title":"threadtitle",
         "name":"name",
         "mail":"optional if non this delete",
         "message":"message",
