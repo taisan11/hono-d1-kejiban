@@ -1,5 +1,8 @@
 Hono&D1その他で掲示板
 apiのみ
+## Setup
+```
+```
 ## Endpoint
 - /api/threads(view any threads(limit 10))GET
 - /api/threads/:threadid(view res on :threadid)GET
