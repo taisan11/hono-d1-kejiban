@@ -20,7 +20,6 @@ app.get("/", (c) => {
 app.get("/api/threads", async (c) => {
 	const db = drizzle(c.env.DB, { schema });
 	const result = await db.select().from(threads).limit(10).execute(); // 最初の10個のレコードを取得
-	console.debug(result);
 	return c.json(result.map((record) => ({ [record.id]: record.title })));
 });
 // thread(Json)
@@ -51,7 +50,6 @@ app.post("/api/post/:threadid", async (c) => {
 		return c.text("すれIDがないよ");
 	}
 	//スレッドにレスを追加
-	console.debug(body.id);
 	let resulta = await db.query.post.findFirst({
 		where: (post, { eq }) => eq(post.id, body.id),
 		orderBy: (post, { desc }) => [desc(post.res_id)],
@@ -60,7 +58,6 @@ app.post("/api/post/:threadid", async (c) => {
 		//@ts-ignore
 		resulta = { res_id: 1 }; // resultaがundefinedの場合に新しいオブジェクトを代入
 	}
-	console.debug(resulta);
 	if (!resulta) {
 		// レコードが存在しない場合の処理をここに書く
 		return c.text("指定されたIDのレコードが存在しません");
@@ -71,11 +68,9 @@ app.post("/api/post/:threadid", async (c) => {
 	);
 	const res_id = Number(`${record.res_id + 1}`);
 	const id = Number(`${body.id}`);
-	console.debug(body.mail);
 	//@ts-ignore
 	let kextuka;
 	if (!body.mail) {
-		console.debug("mailないよ");
 		kextuka = await db
 			.insert(post)
 			.values({
@@ -86,11 +81,9 @@ app.post("/api/post/:threadid", async (c) => {
 				message: body.message,
 				createdAt: new Date().toISOString(),
 				ip_addr: body.ip_addr,
-				// user_id: body.user_id,
 			})
 			.execute();
 	} else {
-		console.debug("mailあるよ");
 		kextuka = await db
 			.insert(post)
 			.values({
@@ -102,7 +95,6 @@ app.post("/api/post/:threadid", async (c) => {
 				message: body.message,
 				createdAt: new Date().toISOString(),
 				ip_addr: body.ip_addr,
-				// user_id: body.user_id,
 			})
 			.execute();
 	}
@@ -132,7 +124,6 @@ app.post("/api/newThread", async (c) => {
 		.returning({ insertedId: threads.id })
 		.execute();
 	//スレッドにレスを追加
-	console.debug(result[0].insertedId);
 	let resulta = await db.query.post.findFirst({
 		where: (post, { eq }) => eq(post.id, result[0].insertedId),
 		orderBy: (post, { desc }) => [desc(post.res_id)],
@@ -141,20 +132,17 @@ app.post("/api/newThread", async (c) => {
 		//@ts-ignore
 		resulta = { res_id: 1 }; // resultaがundefinedの場合に新しいオブジェクトを代入
 	}
-	console.debug(resulta);
 	if (!resulta) {
 		// レコードが存在しない場合の処理をここに書く
 		return c.text("指定されたIDのレコードが存在しません");
 	}
 	const record = resulta; // 最初のレコードを取得
 	const ex_id = Number(
-		`${record.res_id + 1}${body.id}${Math.floor(Math.random() * 88) + 10}`,
+		`${record.res_id}${UnixTime}${Math.floor(Math.random() * 88) + 10}`,
 	);
 	const res_id = Number(`${record.res_id}`); //Qなぜ+1しないの?A.2になってしまうからだよ
 	const id = Number(`${result[0].insertedId}`);
-	console.debug(body.mail);
 	if (!body.mail) {
-		console.debug("mailないよ");
 		await db
 			.insert(post)
 			.values({
@@ -169,7 +157,6 @@ app.post("/api/newThread", async (c) => {
 			})
 			.execute();
 	} else {
-		console.debug("mailあるよ");
 		await db
 			.insert(post)
 			.values({

@@ -15,7 +15,7 @@ bun run dbm
 JSON Body
 ```json
  {
-        "title": "title",
+        "id": "threadID",
         "name": "name",
         "mail": "optional if non this delete",
         "message": "message",
