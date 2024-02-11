@@ -1,6 +1,7 @@
 import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { Hono } from "hono";
+import { cors } from 'hono/cors'
 import { dataConfirmation } from "./datasee";
 import { post, threads } from "./schema";
 import * as schema from "./schema";
@@ -10,6 +11,7 @@ type Bindings = {
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
+app.use('*', cors())
 
 /////////////////////////////////////////
 //       GET系(以下)
