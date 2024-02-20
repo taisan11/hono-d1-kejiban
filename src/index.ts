@@ -125,7 +125,7 @@ app.post("/api/newThread", async (c) => {
 		})
 		.returning({ insertedId: threads.id })
 		.execute();
-	//スレッドにレスを追加
+	//##スレッドにレスを追加##
 	let resulta = await db.query.post.findFirst({
 		where: (post, { eq }) => eq(post.id, result[0].insertedId),
 		orderBy: (post, { desc }) => [desc(post.res_id)],
